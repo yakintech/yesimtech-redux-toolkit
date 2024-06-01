@@ -1,10 +1,22 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link, Route, Routes } from 'react-router-dom'
 import Home from './pages/Home'
 import Products from './pages/Products'
 import Cart from './pages/Cart'
+import { useDispatch } from 'react-redux'
+import { fetchAllCategories } from './store/categorySlice'
 
 function App() {
+
+  let dispatch = useDispatch()
+
+  useEffect(() => {
+    
+    dispatch(fetchAllCategories())
+
+  }, [])
+  
+
   return <>
 
     <ul>
