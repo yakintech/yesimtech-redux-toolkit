@@ -6,6 +6,7 @@ import Cart from './pages/Cart'
 import { useDispatch } from 'react-redux'
 import { fetchAllCategories } from './store/categorySlice'
 import Users from './pages/Users'
+import Suppliers from './pages/Suppliers'
 
 function App() {
 
@@ -25,6 +26,8 @@ function App() {
       <li><Link to='/products'>Products</Link></li>
       <li><Link to='/cart'>Cart</Link></li>
       <li><Link to='/users'>Users</Link></li>
+      <li><Link to='/suppliers'>Suppliers</Link></li>
+
     </ul>
 
     <Routes>
@@ -32,6 +35,7 @@ function App() {
       <Route path="/products" element={<Products />} />
       <Route path="/cart" element={<Cart />} />
       <Route path='/users' element={<Users />} />
+      <Route path='/suppliers' element={<Suppliers />} />
     </Routes>
 
   </>

@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
-import { usersAdapter } from '../store/userSlice'
+import { selectAllUsers, userAdded, userRemoved, usersAdapter } from '../store/userSlice'
 import { useDispatch, useSelector } from 'react-redux'
 
 
-const { selectAll } = usersAdapter.getSelectors((state) => state.users)
 
 
 function Users() {
@@ -11,8 +10,15 @@ function Users() {
     const [name, setname] = useState("")
     const [surname, setSurname] = useState("")
 
-    const dispatch = useDispatch()
-    const users = useSelector(selectAll)
+     const dispatch = useDispatch()
+     const users = useSelector(selectAllUsers)
+
+
+     const add = () => {
+            dispatch(userAdded({ id: users.length + 1, name, surname }))
+            setname("")
+            setSurname("")
+        }
 
 
     return <>
@@ -26,14 +32,17 @@ function Users() {
                 <input type='text' value={surname} onChange={(e) => setSurname(e.target.value)} />
             </div>
             <div>
-                <button>Add User</button>
+                <button onClick={add}>Add User</button>
             </div>
 
         </div>
         <div>
             <ul>
                 {users.map((user) => {
-                    return <li key={user.id}>{user.name} {user.surname}</li>
+                    return <>
+                        <li key={user.id}>{user.name} {user.surname}</li>
+                        <button onClick={() => dispatch(userRemoved(user.id))}>Remove</button>
+                    </>
                 })}
             </ul>
         </div>

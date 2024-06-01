@@ -1,25 +1,27 @@
-import { createSlice, createEntityAdapter } from '@reduxjs/toolkit'
+//write userslice with createEntityAdapter
 
+import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
 
 export const usersAdapter = createEntityAdapter();
 
-const initalState = usersAdapter.getInitialState()
-
-
-export const userSlice = createSlice({
-    name: "users",
-    initialState:  usersAdapter.getInitialState({
-        status: 'idle',
-      }),
+const initialState = usersAdapter.getInitialState();
+const userSlice = createSlice({
+    name: 'users',
+    initialState,
     reducers: {
         userAdded: usersAdapter.addOne,
+        userUpdated: usersAdapter.updateOne,
         userRemoved: usersAdapter.removeOne,
-        userUpdated: usersAdapter.updateOne
-    }
-})
+    },
+});
 
+export const { userAdded, userUpdated, userRemoved } = userSlice.actions;
 
+export default userSlice.reducer;
 
-export const { userAdded, userRemoved, userUpdated } = userSlice.actions
+export const {
+    selectAll: selectAllUsers,
+    selectById: selectUserById,
+    selectIds: selectUserIds,
+} = usersAdapter.getSelectors((state) => state.userState);
 
-export default userSlice.reducer
